@@ -41,9 +41,11 @@ jobs:
     #   run: dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
 
     - name: Restore dependencies
+      working-directory: 'src'
       run: dotnet restore
 
     - name: Test
+      working-directory: 'src'
       run: dotnet test
 
     # - name: Test and analyze
@@ -56,4 +58,5 @@ jobs:
     #     ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
     - name: Build
+      working-directory: 'src'
       run: dotnet build --configuration Release --no-restore
