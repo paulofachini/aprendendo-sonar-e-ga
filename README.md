@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paulofachini_aprendendo-sonar&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=paulofachini_aprendendo-sonar)
+
 # Aprendendo Sonar
 
 Repositório para estudo da ferramenta Sonar.
