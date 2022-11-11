@@ -1,4 +1,4 @@
-using static Prime.Services.PrimeTemperature;
+using static Prime.Services.Temperature;
 
 namespace Prime.UnitTests.Services
 {

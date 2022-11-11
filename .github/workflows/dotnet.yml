@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -25,16 +23,20 @@ jobs:
       working-directory: 'src'
       run: dotnet restore
 
+    - name: Build
+      working-directory: 'src'
+      run: dotnet build --configuration Release --no-restore
+
     - name: Test
       working-directory: 'src'
       run: dotnet test
 
-    - name: SonarCloud Scan
+    - name: Checkout
+      id: checkout_code
+      uses: actions/checkout@v3
+
+    - name: SonarCloud Run Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-    - name: Build
-      working-directory: 'src'
-      run: dotnet build --configuration Release --no-restore
