@@ -14,6 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout
+      id: checkout_code
+      uses: actions/checkout@v3
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -30,10 +34,6 @@ jobs:
     - name: Test
       working-directory: 'src'
       run: dotnet test
-
-    - name: Checkout
-      id: checkout_code
-      uses: actions/checkout@v3
 
     - name: SonarCloud Run Scan
       uses: sonarsource/sonarcloud-github-action@master
