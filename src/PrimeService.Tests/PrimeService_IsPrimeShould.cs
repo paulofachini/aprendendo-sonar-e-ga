@@ -1,7 +1,3 @@
-using System;
-using Prime.Services;
-using Xunit;
-
 namespace Prime.UnitTests.Services
 {
     public class PrimeService_IsPrimeShould
