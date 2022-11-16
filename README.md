@@ -1,3 +1,5 @@
+# Aprendendo Sonar
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paulofachini_aprendendo-sonar&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=paulofachini_aprendendo-sonar)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=paulofachini_aprendendo-sonar&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=paulofachini_aprendendo-sonar)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=paulofachini_aprendendo-sonar&metric=bugs)](https://sonarcloud.io/summary/new_code?id=paulofachini_aprendendo-sonar)
@@ -9,9 +11,6 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=paulofachini_aprendendo-sonar&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=paulofachini_aprendendo-sonar)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=paulofachini_aprendendo-sonar&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=paulofachini_aprendendo-sonar)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=paulofachini_aprendendo-sonar&metric=coverage)](https://sonarcloud.io/summary/new_code?id=paulofachini_aprendendo-sonar)
-
-
-# Aprendendo Sonar
 
 Repositório para estudo da ferramenta Sonar.
 
