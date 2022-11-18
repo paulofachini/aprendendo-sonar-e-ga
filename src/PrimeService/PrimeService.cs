@@ -4,6 +4,8 @@
     {
         public bool IsPrime(int candidate)
         {
+            var inutil = "CHUMBADO";
+            
             if (candidate < 2)
             {
                 return false;
