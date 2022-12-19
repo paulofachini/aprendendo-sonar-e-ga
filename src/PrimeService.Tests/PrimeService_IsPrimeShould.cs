@@ -14,6 +14,7 @@ namespace Prime.UnitTests.Services
         [InlineData(-1)]
         [InlineData(0)]
         [InlineData(1)]
+        [InlineData(-2)]
         public void IsPrime_ValuesLessThan2_ReturnFalse(int value)
         {
             var result = _primeService.IsPrime(value);
@@ -27,6 +28,7 @@ namespace Prime.UnitTests.Services
         [InlineData(3)]
         [InlineData(5)]
         [InlineData(7)]
+        [InlineData(11)]
         public void IsPrime_PrimesLessThan10_ReturnTrue(int value)
         {
             var result = _primeService.IsPrime(value);
