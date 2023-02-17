@@ -47,11 +47,11 @@ jobs:
 
     - name: Add coverlet to project
       run: |
-         dotnet add ${{ env.test_project_path }} package coverlet.collector
+         dotnet add ${{ env.TEST_PROJECT_PATH }} package coverlet.msbuild
 
     - name: Add TestLogger to project
       run: |
-         dotnet add ${{ env.test_project_path }} package XunitXml.TestLogger
+         dotnet add ${{ env.TEST_PROJECT_PATH }} package XunitXml.TestLogger
 
     - name: Test
       run: |
