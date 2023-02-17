@@ -69,9 +69,9 @@ jobs:
     
     - name: Upload Coverage
       uses: actions/upload-artifact@v3
-        with:
-          name: coverage
-          path: ${{ env.TEST_PROJECT_FOLDER }}/results/result.opencover.xml
+      with:
+        name: coverage
+        path: ${{ env.TEST_PROJECT_FOLDER }}/results/result.opencover.xml
 
   sonar:
     needs: build
