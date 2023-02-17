@@ -47,7 +47,7 @@ jobs:
 
     - name: Add coverlet to project
       run: |
-         dotnet add ${{ env.test_project_path }} package coverlet.msbuild
+         dotnet add ${{ env.test_project_path }} package coverlet.collector
 
     - name: Add TestLogger to project
       run: |
