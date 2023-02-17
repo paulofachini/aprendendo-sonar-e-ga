@@ -55,8 +55,7 @@ jobs:
 
     - name: Test
       run: |
-        dotnet test ${{ env.SOLUTION }} --configuration ${{ env.BUILD_CONFIG }} \
-                    /p:CollectCoverage=true \
+        dotnet test /p:CollectCoverage=true \
                     /p:CoverletOutputFormat=\"opencover,cobertura\" \
                     /p:CoverletOutput=results/result \
                     --test-adapter-path:. --logger:"xunit;LogFilePath=results/result.xunit.xml"
