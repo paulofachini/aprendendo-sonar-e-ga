@@ -46,11 +46,11 @@ jobs:
       run: dotnet build ${{ env.SOLUTION_PATH }} --configuration ${{ env.BUILD_CONFIG }} --no-restore
 
     - name: Add coverlet to project
-        run: |
+      run: |
          dotnet add ${{ env.test_project_path }} package coverlet.msbuild
 
     - name: Add TestLogger to project
-        run: |
+      run: |
          dotnet add ${{ env.test_project_path }} package XunitXml.TestLogger
 
     - name: Test
