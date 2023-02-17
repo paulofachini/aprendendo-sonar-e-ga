@@ -10,13 +10,16 @@ on:
       - main
       - develop
 
+env:
+  BUILD_CONFIG: 'Release'
+  SOLUTION_PATH: 'src/unit-testing-using-dotnet-test.sln'
+  TEST_PROJECT_PATH: 'src/PrimeService.Tests/PrimeService.Tests.csproj'
+  TEST_PROJECT_FOLDER: 'src/PrimeService.Tests/'
+
 jobs:
   build:
     name: Build, test and analyze
     runs-on: ubuntu-latest
-    env:
-      BUILD_CONFIG: 'Release'
-      SOLUTION: 'src/unit-testing-using-dotnet-test.sln'
 
     steps:
     - name: Cancel Workflow Action
@@ -32,27 +35,74 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
+    - name: Install Dependencies
+      run: |
+        dotnet tool install --global dotnet-sonarscanner
+        dotnet tool install --global coverlet.console
+        dotnet tool install --global dotnet-reportgenerator-globaltool
+
     - name: Restore dependencies
-      run: dotnet restore $SOLUTION
+      run: dotnet restore ${{ env.SOLUTION_PATH }}
 
     - name: Build
-      run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
+      run: dotnet build ${{ env.SOLUTION_PATH }} --configuration ${{ env.BUILD_CONFIG }} --no-restore
+
+    - name: Add coverlet to project
+      run: |
+         dotnet add ${{ env.TEST_PROJECT_PATH }} package coverlet.msbuild
+
+    - name: Add TestLogger to project
+      run: |
+         dotnet add ${{ env.TEST_PROJECT_PATH }} package XunitXml.TestLogger
 
     - name: Test
       run: |
-        dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger 'trx;LogFileName=test-results.trx' /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./TestResults/coverage.opencover.xml
+        dotnet test ${{ env.SOLUTION_PATH }} \
+                    /p:CollectCoverage=true \
+                    /p:CoverletOutputFormat=\"opencover,cobertura\" \
+                    /p:CoverletOutput=results/result \
+                    --test-adapter-path:. --logger:"xunit;LogFilePath=results/result.xunit.xml"
 
-    - name: Test Report
-      uses: dorny/test-reporter@v1
-      if: always()
+    - name: Generate Report
+      run: |
+        reportgenerator "-reports:${{ env.TEST_PROJECT_FOLDER }}/results/result.opencover.xml" \
+                          "-targetdir:${{ env.TEST_PROJECT_FOLDER }}/results/Cobertura" \
+                          "-reporttypes:Cobertura;HTMLInline;HTMLChart"
+    
+    - name: Upload Coverage
+      uses: actions/upload-artifact@v3
       with:
-        name: Test Report
-        path: "**/test-results.trx"                            
-        reporter: dotnet-trx
-        fail-on-error: true
+        name: coverage
+        path: ${{ env.TEST_PROJECT_FOLDER }}/results/result.opencover.xml
 
-    - name: SonarCloud Run Scan
-      uses: sonarsource/sonarcloud-github-action@master
+  sonar:
+    needs: build
+    name: Sonar Analyze
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Install Dependencies
+      run: |
+        dotnet tool install --global dotnet-sonarscanner
+        dotnet tool install --global coverlet.console
+        dotnet tool install --global dotnet-reportgenerator-globaltool
+
+    - uses: actions/download-artifact@v3
+      with:
+        name: coverage
+        path: results/
+
+    - name: Build and analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+        dotnet restore ${{ env.SOLUTION_PATH }}
+        dotnet-sonarscanner begin /k:"paulofachini_aprendendo-sonar" /o:"paulofachini" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=results/result.opencover.xml
+        dotnet build --no-restore ${{ env.SOLUTION_PATH }}
+        dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
