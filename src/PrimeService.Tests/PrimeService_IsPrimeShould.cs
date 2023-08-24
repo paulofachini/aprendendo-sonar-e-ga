@@ -11,10 +11,11 @@ namespace Prime.UnitTests.Services
 
         #region Sample_TestCode
         [Theory]
+        [InlineData(-3)]
+        [InlineData(-2)]
         [InlineData(-1)]
         [InlineData(0)]
         [InlineData(1)]
-        [InlineData(-2)]
         public void IsPrime_ValuesLessThan2_ReturnFalse(int value)
         {
             var result = _primeService.IsPrime(value);
@@ -29,6 +30,7 @@ namespace Prime.UnitTests.Services
         [InlineData(5)]
         [InlineData(7)]
         [InlineData(11)]
+        [InlineData(13)]
         public void IsPrime_PrimesLessThan10_ReturnTrue(int value)
         {
             var result = _primeService.IsPrime(value);
@@ -41,6 +43,7 @@ namespace Prime.UnitTests.Services
         [InlineData(6)]
         [InlineData(8)]
         [InlineData(9)]
+        [InlineData(10)]
         public void IsPrime_NonPrimesLessThan10_ReturnFalse(int value)
         {
             var result = _primeService.IsPrime(value);
