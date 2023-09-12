@@ -1,6 +1,6 @@
 namespace Prime.Services
 {
-    public class Temperature
+    public static class Temperature
     {
         public static class ConversorTemperatura
         {
