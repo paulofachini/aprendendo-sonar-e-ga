@@ -2,12 +2,6 @@ namespace Prime.UnitTests.Services
 {
     public class PrimeService_IsPrimeShould
     {
-        private readonly PrimeService _primeService;
-
-        public PrimeService_IsPrimeShould()
-        {
-            _primeService = new PrimeService();
-        }
 
         #region Sample_TestCode
         [Theory]
@@ -18,7 +12,7 @@ namespace Prime.UnitTests.Services
         [InlineData(1)]
         public void IsPrime_ValuesLessThan2_ReturnFalse(int value)
         {
-            var result = _primeService.IsPrime(value);
+            var result = PrimeService.IsPrime(value);
 
             Assert.False(result, $"{value} should not be prime");
         }
@@ -33,7 +27,7 @@ namespace Prime.UnitTests.Services
         [InlineData(13)]
         public void IsPrime_PrimesLessThan10_ReturnTrue(int value)
         {
-            var result = _primeService.IsPrime(value);
+            var result = PrimeService.IsPrime(value);
 
             Assert.True(result, $"{value} should be prime");
         }
@@ -46,7 +40,7 @@ namespace Prime.UnitTests.Services
         [InlineData(10)]
         public void IsPrime_NonPrimesLessThan10_ReturnFalse(int value)
         {
-            var result = _primeService.IsPrime(value);
+            var result = PrimeService.IsPrime(value);
 
             Assert.False(result, $"{value} should not be prime");
         }
