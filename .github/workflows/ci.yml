@@ -1,14 +1,12 @@
-name: CI
+name: Pipeline de CI (Linter, Testes, Coberturas e Análise do Sonar)
 
 on:
   push:
     branches:
       - main
-      - develop
   pull_request:
     branches: 
       - main
-      - develop
 
 env:
   BUILD_CONFIG: 'Release'
@@ -17,8 +15,25 @@ env:
   TEST_PROJECT_FOLDER: 'src/PrimeService.Tests/'
 
 jobs:
-  build:
-    name: Build, test and analyze
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    needs: lint
+    name: Test and Coverage
     runs-on: ubuntu-latest
 
     steps:
@@ -76,7 +91,7 @@ jobs:
         path: ${{ env.TEST_PROJECT_FOLDER }}/results/result.opencover.xml
 
   sonar:
-    needs: build
+    needs: test
     name: Sonar Analyze
     runs-on: ubuntu-latest
 
