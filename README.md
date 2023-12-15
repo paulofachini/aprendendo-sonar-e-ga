@@ -1,4 +1,4 @@
-# Aprendendo Sonar
+# Aprendendo Sonar e Github Actions
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paulofachini_aprendendo-sonar&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=paulofachini_aprendendo-sonar)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=paulofachini_aprendendo-sonar&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=paulofachini_aprendendo-sonar)
