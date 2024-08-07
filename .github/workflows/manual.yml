@@ -5,7 +5,7 @@ on:
 
 jobs:
   run_parent:
-    runs-on: small-runner
+    runs-on: ubuntu-latest
     container:
       image: node
     env:
