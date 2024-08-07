@@ -15,5 +15,5 @@ jobs:
       - 
         name: TESTE
         run: | 
-          echo "CLIENTE -> $USER"
-          echo "SECRET -> ${{ secrets.USER }}"
+          echo "USER -> $USER"
+          echo "USER -> ${{ secrets.USER }}"
