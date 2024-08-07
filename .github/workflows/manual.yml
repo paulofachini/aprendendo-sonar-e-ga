@@ -1,0 +1,19 @@
+name: Execução manual
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run_parent:
+    runs-on: small-runner
+    container:
+      image: node
+    env:
+      USER: ${{ secrets.USER }}
+
+    steps:
+      - 
+        name: TESTE
+        run: | 
+          echo "CLIENTE -> $USER"
+          echo "SECRET -> ${{ secrets.USER }}"
